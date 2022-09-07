@@ -1,9 +1,9 @@
 import { PropTypes } from 'prop-types';
 import { ListItem, List } from './ContactList.styled';
 
-export const ContactList = ({ state, handleDeleteContacts }) => {
-  const visibleContacts = state.contacts.filter(el => {
-    return el.name.toLowerCase().includes(state.filter.toLowerCase());
+export const ContactList = ({ contacts, filter, handleDeleteContacts }) => {
+  const visibleContacts = contacts.filter(el => {
+    return el.name.toLowerCase().includes(filter.toLowerCase());
   });
   return (
     <List>
@@ -22,6 +22,12 @@ export const ContactList = ({ state, handleDeleteContacts }) => {
 };
 
 ContactList.propTypes = {
-  state: PropTypes.object.isRequired,
+  contacts: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ),
   handleDeleteContacts: PropTypes.func.isRequired,
 };
